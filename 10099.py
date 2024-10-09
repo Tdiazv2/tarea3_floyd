@@ -6,22 +6,22 @@ def tourist_guide(n, matriz, origen, destino, turistas):
             for j in range(n):
                 matriz[i][j] = max(matriz[i][j], min(matriz[i][k], matriz[k][j]))
 
-    capacidad_maxima = matriz[origen][destino]
+    maxi = matriz[origen][destino]
 
-    if capacidad_maxima == float('-inf'):
+    if maxi == float('-inf'):
         return float('inf')
 
-    return (turistas + capacidad_maxima - 1) // capacidad_maxima  
+    return (turistas + maxi - 1) // maxi  
 
 def main():
-    numero_escenario = 1
+    num = 1
 
     while True:
-        entrada = sys.stdin.readline().strip()
-        if entrada == "0 0":
+        linea = sys.stdin.readline().strip()
+        if linea == "0 0":
             break
         
-        N, R = map(int, entrada.split())
+        N, R = map(int, linea.split())
         
         x = float('-inf')
         matriz = [[0] * N for _ in range(N)]
@@ -36,16 +36,16 @@ def main():
             matriz[C1 - 1][C2 - 1] = P  
             matriz[C2 - 1][C1 - 1] = P  
 
-        S, D, T = map(int, sys.stdin.readline().strip().split())
-        S -= 1  
-        D -= 1  
+        origen, destino, turistas = map(int, sys.stdin.readline().strip().split())
+        origen -= 1  
+        destino -= 1  
 
-        viajes = tourist_guide(N, matriz, S, D, T)
+        viajes = tourist_guide(N, matriz, origen, destino, turistas)
 
-        print(f"Escenario #{numero_escenario}")
+        print(f"Escenario #{num}")
         print(f"Número Mínimo de Viajes = {viajes}")
         
-        numero_escenario += 1
+        num += 1
 
 if __name__ == "__main__":
     main()
